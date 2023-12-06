@@ -1,23 +1,19 @@
 const { Schema, model } = require("mongoose");
-// const Joi = require("joi");
 
 const { handleMongooseErr } = require("../helpers");
 
 const userSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: [true, "Set name for user"],
-    },
-    password: {
-      type: String,
-      required: [true, "Set password for user"],
-    },
     email: {
       type: String,
       required: [true, "Email is required"],
       unique: true,
     },
+    password: {
+      type: String,
+      required: [true, "Set password for user"],
+    },
+
     subscription: {
       type: String,
       enum: ["starter", "pro", "business"],

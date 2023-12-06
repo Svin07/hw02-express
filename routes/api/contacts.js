@@ -7,19 +7,26 @@ const {
   validateBodyForPost,
   validateBodyForPatch,
   invalidId,
+  authenticate,
 } = require("../../middleWare");
 const schemas = require("../../schemas/contacts");
 
-router.get("/", ctrl.listContacts);
+router.get("/", authenticate, ctrl.listContacts);
 
-router.get("/:contactId", invalidId, ctrl.getContactById);
+router.get("/:contactId", authenticate, invalidId, ctrl.getContactById);
 
-router.post("/", validateBodyForPost(schemas.addSchema), ctrl.addContact);
+router.post(
+  "/",
+  authenticate,
+  validateBodyForPost(schemas.addSchema),
+  ctrl.addContact
+);
 
-router.delete("/:contactId", invalidId, ctrl.removeContact);
+router.delete("/:contactId", authenticate, invalidId, ctrl.removeContact);
 
 router.put(
   "/:contactId",
+  authenticate,
   invalidId,
   validateBodyForPost(schemas.addSchema),
   ctrl.updateContact
@@ -27,6 +34,7 @@ router.put(
 
 router.patch(
   "/:contactId/favorite",
+  authenticate,
   invalidId,
   validateBodyForPatch(schemas.updateFavoriteSchema),
   ctrl.updateFavorite
