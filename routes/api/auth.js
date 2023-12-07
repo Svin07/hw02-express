@@ -5,6 +5,7 @@ const ctrl = require("../../controllers/auth");
 
 const {
   validateBodyForPost,
+  authenticate,
   //   validateBodyForPatch,
   //   invalidId,
 } = require("../../middleWare");
@@ -18,5 +19,9 @@ router.post(
 );
 
 router.post("/login", validateBodyForPost(schemas.loginSchema), ctrl.login);
+
+router.get("/current", authenticate, ctrl.getCurrent);
+
+router.post("/logout", authenticate, ctrl.logout);
 
 module.exports = router;

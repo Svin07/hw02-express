@@ -9,6 +9,7 @@ const {
   invalidId,
   authenticate,
 } = require("../../middleWare");
+
 const schemas = require("../../schemas/contacts");
 
 router.get("/", authenticate, ctrl.listContacts);
