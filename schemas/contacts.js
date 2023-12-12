@@ -7,6 +7,7 @@ const addSchema = Joi.object({
     .required(),
   phone: Joi.string().required(),
   favorite: Joi.boolean(),
+  avatarURL: String,
 });
 
 const updateFavoriteSchema = Joi.object({
