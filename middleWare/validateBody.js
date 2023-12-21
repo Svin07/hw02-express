@@ -11,6 +11,17 @@ const validateBodyForPost = (schema) => {
   return func;
 };
 
+const validateBody = (schema) => {
+  const func = (req, res, next) => {
+    const { error } = schema.validate(req.body);
+    if (error) {
+      next(HttpError(400, "missing required field email"));
+    }
+    next();
+  };
+  return func;
+};
+
 const validateBodyForPatch = (schema) => {
   const func = (req, res, next) => {
     const { error } = schema.validate(req.body);
@@ -22,4 +33,8 @@ const validateBodyForPatch = (schema) => {
   return func;
 };
 
-module.exports = { validateBodyForPost, validateBodyForPatch };
+module.exports = {
+  validateBodyForPost,
+  validateBody,
+  validateBodyForPatch,
+};
